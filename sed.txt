@@ -1,0 +1,89 @@
+1. Change the name Jon to Jonathan .
+
+sed -e 's/Jon/Jonathan/g' datebook.txt
+
+# The -e executes the change from Jon to Jonathan. We use s/ to find the name Jon and use /Jonathan/g to execute the change we want.
+
+2. Delete the first four lines.
+
+sed '1,4d' datebook.txt
+
+# The d in the command is the action to delete lines from 1 to 4. We do not use -e because we are not executing a change.
+# We are just printing the first four lines.
+
+3. Print lines 7 through 11 .
+
+sed -n '7,11p' datebook.txt
+
+# This command is solved the same way as the last question. But instead of d for delete we use p to print the lines specified.
+# -n allows the command to append, remove or change lines in a datasheet.
+
+4. Delete lines containing Lane .
+
+sed -e '/Lane/d' datebook.txt
+
+# In this command we use the -e to execute and we use forward slashes to tell the command what we want to look for in a line to ensure
+# they are deleted. Using the d after the specified word or letter to delete the line.
+
+5. Print all lines where the birthdays are in October or December .
+
+sed -n -e '/[0-9]\{10\}:1[12]\//p' datebook.txt
+
+# We are printing lines so we end the command with p. But since we are going by months and the data sheet is entered with numbers 
+# we exclude all months between 0-9. Followed by anything after the 10th month and ending in 12. 
+
+6. Append three asterisks to the end of lines starting with Fred .
+
+sed '/Fred/ a***' datebook.txt
+
+# Calling all lines with Fred in it the same we did in question 4. Using 'a' to add the three asterisks to the lines.
+
+7. Replace the line containing Jose with JOSE HAS RETIRED .
+
+sed -e 's/.*Jose.*/JOSE HAS RETIRED\./g' datebook.txt
+
+# This is another execute command so we start the command with -e followed by finding Jose in the datasheet. Then using a forward
+# and backward slash to define what we want to change the previous value we called for within "*". Using the "g" to get the info
+# we called for.
+
+8. Change Popeye 's birthday to 11/14/99 . Assume you don't know Popeye's original birthday. Use a regular expression to search for it.
+
+sed -e '/Popeye/s#[0-9][0-9]*/[0-9][0-9]*/[0-9][0-9]#11/14/99#g' datebook.txt
+
+# Using the -e to execute the command. We use [0-9] seperated by "*" and "/" to classify a regex command in the format entered in the 
+# datasheet followed by "#" to enter in the change that we want to enter in which is 11/14/99. Including "g" to get the data.
+
+9. Delete all blank lines.
+
+sed '/^$/d' datebook.txt
+
+# This series of values select all lines that do not have any of the following info. Starting at the beginning of a line from the 
+# profile by trying to match $ at the start of a line and ^ then delete any lines that match.
+
+10. Write a sed script that will
+
+	a. Insert above the first line the title  -PERSONNEL FILE-. 
+	
+	'1 i\-PERSONNEL FILE-'
+
+# We enter 1 to classify line 1. Followed by "i" which allows us to insert the given text after a backslash.
+
+	b. Remove the salaries ending in  600 .
+
+	/600$/d
+
+# This command finds any data at 600 enclosed by "/" to find the specific data followed by "d" to delete the data.
+
+	c. Print the contents of the file with the last names and first names reversed .
+
+	s/\(^[A-Za-z]*\)\([ \t]*\)\([A-Za-z]*\):\(.*\)$/\3\2\1:\4/g
+
+# In this command we use the "s" operator to seperate the first and last names from here we will call all name starting a-z upper and 
+# lowercase. Followed by the t operator, then the same command for first name, just for last name. These pull the first and last name
+# from the datasheet, followed by $ and 3\2\1:\4 to swap the order of the data pulled. Finishing with the "g" command to get the data.
+
+	d. Append at the end of the file  THE END .
+	
+	'$a\THE END\'
+
+# Using the "$" operator and "a" to add the contents within the backslashes to append the given text to the file.
