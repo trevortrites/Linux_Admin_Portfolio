@@ -1,0 +1,165 @@
+Awk (use the file attached called lab3.data)
+
+1. Print all the phone numbers.
+
+	awk -F: '{print $2}' lab3.data
+
+# This command print the second variable in the string of data. 
+# I figured this out because the data is parced into three sections and printed the second one being the phone numbers.
+
+2. Print Dan 's phone number.
+
+	awk -F: '/Dan/ {print $2}' lab3.data
+
+# This command takes the first word of the entry which is "Dan" and prints specifically Dan's phone number which was parced
+# in the second entry like the command before.
+
+3. Print Susan 's name and phone number.
+
+	awk -F: '/Susan/ {print $1,$2}' lab3.data
+
+# This command is the same as the previous command but pulling the first parce and the second parce of data from Susan's entry
+# The -F stand for file seperator.
+
+4. Print all last names beginning with S.
+
+	awk -F"[ :]" '$2~/^S/ {print $2}' lab3.data
+
+# In this command the [ :] represents the second word in the data entry which is last names in the databook. The ^S ensures its 
+# only capital S and the print will print the entrys of the field that was created in the script.
+
+5. Print all first names beginning with either a C or J.
+
+	awk  '$1~/^(C|J)/ %{print $1}' lab3.data
+
+# $1 stands for the first field of entry, and the operator of (C|J) represents to pull C or J, following by the print command. We do
+# not need the -F for this command because we are specifiing the specific of the data we are pulling from the databook.
+
+6. Print all first names containing only four characters.
+
+	awk  '$1~/^[A-Za-z][A-Za-z][A-Za-z][A-Za-z]$/{print $1}' lab3.data
+
+# Like the previous command the $1 stands for the first entry, followed by calling 4 seperate entries of capital and lowercase letters
+# emphasizing four characters wether lowercase or uppercase. To follow up by a print. I had issues trying methods and did the long way.
+
+7. Print the first names of all those in the 916 area code.
+
+	awk '/(916)/ {print $1}' lab3.data
+
+# Using the command from question three, I did the same method by pulling a data entry that has 916 in the entry. Although this method probably 
+# wouldnt work if there would happen to be a 916 somewhere in one of the numbers that doesnt have the area code. Becuase I am pulling it from
+# the full string instead of a specific parce of data.
+
+
+8. Print Mike 's campaign contributions. Each value should be printed with a leading dollar sign; e.g., $250 $100 $175.
+
+	awk -F: '/Mike/ {print "$"$3,"$"$4,"$"$5}' lab3.data
+
+# This command pulls Mike from the data entry and prints the seperated data entry at the end of Mike's entry. I solved this by seeing the 
+# number of the specific fields from Mikes data entry by viewing the file.
+
+9. Print last names followed by a comma and the first name.
+
+	awk -F"[ :]" '{print $2 ", " $1}' lab3.data
+
+# Refering to question 4, I did the same thing to print the last names of the data entries. Then printing the last names with the $2 and $1 
+# variables with the comma being in the middle to ensure the correct output of the question. You must put the comma in quotations becuase you
+# entering the data rather than printing it. 
+
+
+10. Write an awk script called facts that:
+
+    A) Prints full names and phone numbers for the Savages.
+
+	awk -F: '/Savage/ {print $1, $2}' lab3.data
+
+# Refering to past command in previous questions I used the same command and put "Savage" in instead and print the first and second data entry
+# which contains full names in $1 and phone numbers in $2.
+
+    B) Prints Chet 's contributions.
+
+	awk -F: '/Chet/ {print $3, $4, $5}' lab3.data
+
+# Following past commands I pulled Chets data entry and printed all of the parces in his entry.
+
+    C) Prints all those who contributed $50 the first month.
+
+	awk -F: '($3>=50) {print $0}' lab3.data
+
+# This command pulls the $3 parce of data which containing the first entry on currency to match the number fifty using the equal sign as an
+# operator and printing the $0 to ensure the full data entry gets printed of where the data came from.
+
+
+
+Awk (use the lab4.data file)
+
+
+1. Print the first and last names of those who contributed more than $110 in the second month.
+
+awk -F ":"'$4>110 {print $1}' lab4.data
+
+# This command pulls the 4 parce of data that contains the contribution for the second month, and I used the > opertator to force more than. 
+# Followed by the first parce of data which is where the full names are located.
+
+2. Print the names and phone numbers of those who contributed less than $75 in the last month.
+
+awk -F ":"'$5>75 {print $1 $2}' lab4.data
+
+# As explained in the previous question, I did the same thing then printed the first and second parce of data which includes full names and phone
+# numbers.
+
+3. Print the names of those who contributed between $75 and $150 in the first month.
+
+awk -F '[: ]' '$5>75 & $5<150{print $1,$2}' lab4.data
+
+# As done in previous question I did the same method as before but used the & symbol to include both currencies. The [: ] parces the data an extra 
+# entry and that is why I had to print 1 and 2 on this entry.  
+
+4. Print the names of those who contributed less than $700 over the three-month period.
+
+awk -F ":"'($4+$5+47)<700{print $1,$2}' lab4.data
+
+# On this command I had to pull all three month periods which is the following parces. Using < which is less than the requested amount of 700
+# then print the names with the amounts.
+
+5. Print the names and addresses of those with an average monthly contribution greater than $100 .
+
+awk -F ":"'($5+$6+$7)/3>200{print $1,$2,$3 $4}' lab4.data
+
+#  As I did in the previous command I did the same method but instead using two operators to pull an average. To do this I used the / operator and 
+# the > to further print the rest of the entries and names.
+
+6. Print the first name of those not in the 916 area code.
+
+awk -F '[: ]' '!($3=="(916)"){print $1}' lab4.data
+
+# Using the ! operator within parrenthesis allows to do the oppisite of previous commands such /916/. Putting the data I want excluded I put in
+# quotations. Followed by printing the full names. I couldnt get the command to print only first names.
+
+7. Print each record preceded by the number of the record.
+
+awk '{print NR,$0}' lab4.data
+
+# This command prints each record using the $0 operator with the NR which prints the number of the record of entry in the databook.
+
+8. Print the name and total contribution of each person.
+
+awk -F  '{print $1,$2,$5+$6+$7}' lab4.data
+
+# This command is a full print command that prints the names initailly in the first parce. Followed by the final parces of the amount added together
+# to create a seprated parce for the totals.
+
+9. Add $10 to Chet 's second contribution.
+
+awk -F '[: ]' '!($1==Chet)"){print $6+10}' lab4.data 
+
+# This command refering back to the 6th command does the same things but prints the 6th data entry which was Chets second contribution. Then using
+# the + operator to add 10 dollars to the entry as if was an error in the data sheet. 
+
+10. Change Nancy McNeil 's name to Doris Shutt .
+
+awk -F '[: ]' '$1=="Nancy McNeil"{$1="Doris Shutt";print $1}' lab4.data
+
+# This command find Nancys name within the first parce of data with the names. But instead of just printing the command like we have in all of the
+# previous commands we are going to create an entry but putting it before the print to proceed with the command and print to ensure it was changed.
+
