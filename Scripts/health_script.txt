@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Load average 
+dstat -l 5 6 >> /root/class/linux/health_log
+
+# Network statistics
+dstat -n 4 5 >> /root/class/linux/health_log
+
+# Tcp statistics
+dstat --tcp 10 5 >> /root/class/linux/health_log
+
+# CPU statistics
+dstat -c 2 6 >> /root/class/linux/health_log
+
+# Memory usage and statistics
+dstat --mem-adv 4 6 >> /root/class/linux/health_log
+
+# Disk activity
+dstat -a 2 5 >> /root/class/linux/ health_log
