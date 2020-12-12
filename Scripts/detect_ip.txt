@@ -1,0 +1,9 @@
+#!/bin/sh
+
+date >> /root/class/linux/network_scan.txt
+
+# This adds the date to the text file so we know when the output was created
+
+nmap-sT -0 192.169.0.0/24 >> /root/class/linux/network_scan.txt
+
+# this redirects the detected IP addresses on my network to a txt file 

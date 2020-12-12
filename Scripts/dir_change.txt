@@ -1,0 +1,15 @@
+#!/bin/sh
+
+date >> /root/class/linux/monitoring_log.txt
+
+# Append log file with date of collection.
+
+sha1sum /etc/* | sha1sum >> /root/class/linux/monitoring_log.txt
+
+inotifywait -m /etc >> /root/class/linux/monitoring_log.txt
+
+# This generates a output of changes in /etc/directory/, then rediects to a text file 
+
+
+
+
